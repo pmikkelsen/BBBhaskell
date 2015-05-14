@@ -3,7 +3,7 @@
 
 name:                beaglebone-black-haskell
 version:             0.1.0.0
-synopsis:            A small haskell program to simulate a conveyor belt from a supermarket.            
+synopsis:            
 -- description:         
 license:             BSD3
 license-file:        LICENSE

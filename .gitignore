@@ -1,0 +1,6 @@
+dist
+dist/*
+hue
+hue/*
+.cabal-sandbox
+cabal.sandbox.config

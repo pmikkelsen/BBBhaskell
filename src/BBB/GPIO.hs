@@ -139,19 +139,22 @@ exportPin (InvalidPin ph pn) = do
     return InvalidExportedPin
 exportPin pin = do
     writeFile (baseGPIOPath ++ "export") (show $ fromJust $ lookup pin gpioPins)
-    handle <- openFile (fromJust (getPinPath pin) ++ "value") WriteMode
+    writeFile ((fromJust (getPinPath pin)) ++ "/direction") "out"
+    handle <- openFile (fromJust (getPinPath pin) ++ "/value") WriteMode
     hSetBuffering handle NoBuffering
+    putStrLn $ show pin ++ " is now exported."
     return $ ExportedPin pin handle
 
 unexportPin :: ExportedPin -> IO ()
 unexportPin (ExportedPin pin handle) = do
     hClose handle
     writeFile (baseGPIOPath ++ "unexport") (show $ fromJust $ lookup pin gpioPins)
+    putStrLn $ show pin ++ " is now unexported."
 unexportPin _ = return ()
 
 setPin :: ExportedPin -> LogicLevel -> IO ()
-setPin (ExportedPin pin handle) level = hPutChar handle (levelChar level)
-    where levelChar = head . show . fromEnum
+setPin (ExportedPin _ handle) High = hPutChar handle '1'
+setPin (ExportedPin _ handle) Low = hPutChar handle '0'
 setPin _ _ = return ()
 
 toogleLED :: LED -> LogicLevel -> IO ()

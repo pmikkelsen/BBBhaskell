@@ -8,7 +8,7 @@ data IC74HC595 = IC74HC595  { latchPin  :: ExportedPin
                             , outputEnablePin :: ExportedPin}
 
 icPins :: IC74HC595 -> [ExportedPin]
-icPins ic = [latchPin, dataPin, clockPin, outputEnablePin] <*> [ic]
+icPins ic = map ($ ic) [latchPin, dataPin, clockPin, outputEnablePin] 
 
 clock :: IC74HC595 -> LogicLevel -> IO ()
 clock ic level = do

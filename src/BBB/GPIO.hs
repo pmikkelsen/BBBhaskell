@@ -1,4 +1,4 @@
-module GPIO 
+module BBB.GPIO 
     ( LogicLevel(..)
     , PinNumber(..)
     , Pin
@@ -111,7 +111,7 @@ gpioPins = [(Pin P8 Pin3, 38)
 	   ]
 
 baseGPIOPath :: FilePath
-baseGPIOPath = "./hue/"
+baseGPIOPath = "/sys/class/gpio/"
 
 baseLEDPath :: FilePath
 baseLEDPath = "/sys/class/leds/beaglebone:green:usr"
